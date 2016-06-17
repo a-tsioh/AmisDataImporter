@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 from collections import namedtuple
 
@@ -15,7 +16,7 @@ data = json.load(open("./data/dict-amis.json"))
 
 PDG_HOST = "http://g0v-tw.padagraph.io"
 PDG_KEY = ""
-GRAPHNAME = "Amis萌典"
+GRAPHNAME = "Amis Dict"
 DESCRIPTION = "lexical graph built from Amis Dictionnaries"
 TAGS = ["Amis", "lexicon"]
 
@@ -71,7 +72,7 @@ def getNodesIterator():
                 'properties': {'id': (NodeStem.name, stem),
                     'label': stem}}
         i = 0
-        for het in entry['heteromyms']:
+        for het in entry['heteronyms']:
             for lex in het['definitions']:
                 i += 1 
                 lexid = "%s-%d" % (form,i)
@@ -79,7 +80,7 @@ def getNodesIterator():
                 if "example" in lex:
                     examples = "\n".join([x.replace(u"\ufff9","- ")
                             .replace(u"\ufffa","").replace(u"\ufffb"," ") for x in lex['example']])
-                    props = {'form': form,
+                props = {'form': form,
                         'id': (NodeLexem.name, lexid),
                         'label': lexid,
                         'stem': stem,
@@ -110,7 +111,7 @@ def getEdgesIterator():
                     'target': stem_id,
                     'properties': {}}
         i = 0
-        for het in entry['heteromyms']:
+        for het in entry['heteronyms']:
             for lex in het['definitions']:
                 i += 1 
                 lexid = nodes_uuids[(NodeLexem.name,"%s-%d" % (form,i))]
