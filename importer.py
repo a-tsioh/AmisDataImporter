@@ -70,13 +70,14 @@ def getNodesIterator():
                     examples = "\n".join([x.replace(u"\ufff9","- ")
                             .replace(u"\ufffa","").replace(u"\ufffb"," ") for x in lex['example']])
                 props = [form,
-                        "-".join((NodeLexem.name, lexid)),
                         lexid,
                         stem,
-                        lex['def'],
-                        examples]
+                        lex['def'].replace(",","，"),
+                        examples.replace("\n"," / ").replace(",","，")]
                 yield { 'nodetype': NodeLexem.name,
                         'properties': props}
 
+
+print("@Lexeme: form, #label, stem, def, ex")
 for n in getNodesIterator():
     print(", ".join(n['properties']))
