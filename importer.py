@@ -78,6 +78,6 @@ def getNodesIterator():
                         'properties': props}
 
 
-print("@Lexeme: form, #label, stem, def, ex")
+print("@Lexeme: %form, #label, %stem, def, ex")
 for n in getNodesIterator():
     print(", ".join(n['properties']))
